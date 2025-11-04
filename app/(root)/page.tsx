@@ -1,21 +1,18 @@
 import SearchForm from "@/components/SearchForm";
-import StartupCard from "@/components/StartupCard";
+import StartupCard, { StartupCardType } from "@/components/StartupCard";
+import { client } from "@/sanity/lib/client";
 import { Star } from "lucide-react";
 import { title } from "process";
+import { STARTUP_QUERY } from "@/sanity/lib/queries";
+
 
 export default async function Home({searchParams}: { searchParams: Promise< {query?: string}> } ) {
 
   const query = (await searchParams).query;
 
-  const posts = [{_createdAt : new Date(),
-    views : 55,
-    author : { _id : 1, name : 'John Doe' },
-    _id : 1,
-    description : 'This is a sample description',
-    image : "https://img6.arthub.ai/64e9dd6d-377a.webp",
-    category : "Robots",
-    title : "AI Robot Assistant",
-   }];
+  const posts = await client.fetch(STARTUP_QUERY);
+
+  console.log(JSON.stringify(posts, null, 2));
 
   return (
     <>
