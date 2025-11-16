@@ -196,13 +196,6 @@
     }
   },
   {
-    "name": "markdown",
-    "type": "type",
-    "value": {
-      "type": "string"
-    }
-  },
-  {
     "name": "sanity.imagePaletteSwatch",
     "type": "type",
     "value": {

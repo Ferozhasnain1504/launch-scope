@@ -1,4 +1,3 @@
-import { UserIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
 export const startup = defineType({
@@ -45,7 +44,7 @@ export const startup = defineType({
         }),
         defineField({
             name : 'pitch',
-            type : 'markdown',
+            type : 'text',
         }),
     ],
 })
