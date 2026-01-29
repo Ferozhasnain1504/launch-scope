@@ -9,6 +9,7 @@ import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { createFetch as createPitch } from "@/lib/action";
 
 
 const StartupForm = () => {
@@ -30,20 +31,18 @@ const StartupForm = () => {
             }
             await formSchema.parseAsync(formValues);
 
-            console.log("Form is valid", formValues);
+            const result = await createPitch(prevState, formData, pitch);
 
-            // const result = await createIdea(prevState, formData, ptich);
-            
-            // if(result.status == 'SUCCESS'){
-            //     toast({
-            //         title: 'Validation Error',
-            //         description: 'Something went wrong. Please try again.',
-            //         variant: 'destructive',
-            //     })
-            //     router.push(`/startup/${result.id}`);
-            // }
+            if(result.status == 'SUCCESS'){
+                toast({
+                    title: 'Validation Error',
+                    description: 'Something went wrong. Please try again.',
+                    variant: 'destructive',
+                })
+                router.push(`/startup/${result._id}`);
+            }
 
-            // return result;
+            return result;
         }catch(error){
             if(error instanceof z.ZodError){
                 const fieldErrors = error.flatten().fieldErrors;
